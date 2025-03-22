@@ -3,7 +3,23 @@ import Foundation
 
 class StatusBarManager {
     var statusBarItem: NSStatusItem!
-    let darkModeManager = DarkModeManager()
+    var darkModeManager = DarkModeManager()
+
+    init() {
+        setupStatusBarItem()
+    }
+
+    func setupStatusBarItem() {
+        statusBarItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        if let button = statusBarItem.button {
+            
+            button.sendAction(on: [.leftMouseUp, .rightMouseUp])
+            button.action = #selector(statusBarButtonClicked(_:))
+            button.target = self
+
+        }
+        updateStatusBarIcon() 
+    }
 
     func updateStatusBarIcon() {
         let isDarkMode = UserDefaults.standard.string(forKey: "AppleInterfaceStyle") == "Dark"
@@ -18,23 +34,18 @@ class StatusBarManager {
         }
     }
 
-    func showContextMenu() {
-        let menu = NSMenu()
-        menu.addItem(withTitle: "Quit", action: #selector(NSApplication.shared.terminate(_:)), keyEquivalent: "q")
-        statusBarItem.menu = menu
-        statusBarItem.button?.performClick(nil)
-        statusBarItem.menu = nil 
-    }
-    
     @objc func statusBarButtonClicked(_ sender: NSStatusBarButton?) {
-        guard let event = NSApp.currentEvent else { return }
-
-        if event.type == .rightMouseUp {
-            showContextMenu()
-        } else if event.type == .leftMouseUp {
-            darkModeManager.toggleDarkMode()
-            updateStatusBarIcon()
+        if let event = NSApp.currentEvent {
+            if event.type == NSEvent.EventType.rightMouseUp {
+                let menu = NSMenu()
+                menu.addItem(NSMenuItem(title: "Quit", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
+                statusBarItem.menu = menu
+                statusBarItem.button?.performClick(nil)
+                statusBarItem.menu = nil
+            } else if event.type == NSEvent.EventType.leftMouseUp {
+                darkModeManager.toggleDarkMode()
+                updateStatusBarIcon()
+            }
         }
     }
-
 }
