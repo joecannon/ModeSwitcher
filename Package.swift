@@ -5,15 +5,7 @@ import PackageDescription
 let package = Package(
     name: "ModeSwitcher",
     platforms: [
-        .macOS(.v10_15)
-    ],
-    products: [
-        .executable(
-            name: "ModeSwitcher",
-            targets: ["ModeSwitcher"]
-        ),
-    ],
-    dependencies: [
+        .macOS(.v14)
     ],
     targets: [
         .executableTarget(
