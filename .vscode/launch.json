@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:ModeSwitcher}",
+            "name": "Debug ModeSwitcher",
+            "program": "${workspaceFolder:ModeSwitcher}/.build/debug/ModeSwitcher",
+            "preLaunchTask": "swift: Build Debug ModeSwitcher"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:ModeSwitcher}",
+            "name": "Release ModeSwitcher",
+            "program": "${workspaceFolder:ModeSwitcher}/.build/release/ModeSwitcher",
+            "preLaunchTask": "swift: Build Release ModeSwitcher"
+        }
+    ]
+}

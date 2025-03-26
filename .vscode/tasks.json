@@ -1,0 +1,22 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "swift: Build Debug ModeSwitcher",
+            "type": "shell",
+            "command": "swift build -c debug"
+        },
+        {
+            "label": "swift: Build Release ModeSwitcher",
+            "type": "shell",
+            "command": "swift build -c release"
+        },
+        {
+            "label": "swift: Package ModeSwitcher as .app",
+            "type": "shell",
+            "command": "mkdir -p ModeSwitcher.app/Contents/MacOS && mkdir -p ModeSwitcher.app/Contents/Resources && cp -r .build/release/ModeSwitcher ModeSwitcher.app/Contents/MacOS/ModeSwitcher && cp -r Sources/ModeSwitcher/icon.icns ModeSwitcher.app/Contents/Resources/icon.icns && cp -r Sources/ModeSwitcher/Info.plist ModeSwitcher.app/Contents/Info.plist"
+        }
+    ]
+}
